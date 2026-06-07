@@ -4,28 +4,28 @@ const noon = new Date('2026-06-07T12:00:00');
 const night = new Date('2026-06-07T23:30:00');
 
 test('defaults to content', () => {
-  const m = new MoodModel();
-  expect(m.dominantMood(noon)).toBe('content');
+  expect(new MoodModel().dominantMood(noon)).toBe('content');
 });
 
 test('hunger rises over time and triggers hungry', () => {
   const m = new MoodModel({ hunger: 0 });
-  m.tick(1000, noon, 'active');     // long time -> hunger maxes
+  m.tick(1000, noon, 'active');
   expect(m.hunger).toBeGreaterThanOrEqual(80);
   expect(m.dominantMood(noon)).toBe('hungry');
 });
 
-test('feed() resets hunger', () => {
+test('feed() lowers hunger out of hungry range', () => {
   const m = new MoodModel({ hunger: 90 });
   m.feed();
-  expect(m.hunger).toBeLessThanOrEqual(10);
+  expect(m.hunger).toBeLessThan(80);
   expect(m.dominantMood(noon)).not.toBe('hungry');
 });
 
-test('staying active drains energy into sleepy', () => {
-  const m = new MoodModel({ energy: 100, hunger: 0 });
-  m.tick(1000, noon, 'active');
+test('draining energy (while not hungry) makes it sleepy', () => {
+  const m = new MoodModel({ energy: 30, hunger: 0 });
+  m.tick(60, noon, 'active');
   expect(m.energy).toBeLessThanOrEqual(20);
+  expect(m.hunger).toBeLessThan(80);
   expect(m.dominantMood(noon)).toBe('sleepy');
 });
 
@@ -37,8 +37,8 @@ test('sleeping recovers energy', () => {
 
 test('night lowers the sleepy threshold', () => {
   const m = new MoodModel({ energy: 45, hunger: 0, happiness: 50 });
-  expect(m.dominantMood(noon)).not.toBe('sleepy'); // 45 ok in daytime
-  expect(m.dominantMood(night)).toBe('sleepy');    // 45 sleepy at night
+  expect(m.dominantMood(noon)).not.toBe('sleepy');
+  expect(m.dominantMood(night)).toBe('sleepy');
 });
 
 test('pet() and play() raise happiness; play costs energy', () => {

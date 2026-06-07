@@ -1,8 +1,8 @@
 const clamp = (v) => Math.max(0, Math.min(100, v));
 
 const RATES = {
-  hungerPerSec: 0.08,
-  energyDrainPerSec: 0.08,
+  hungerPerSec: 0.3,
+  energyDrainPerSec: 0.25,
   energyRecoverPerSec: 0.5,
   energyRestPerSec: 0.05,
   happinessDecayPerSec: 0.05,
@@ -11,7 +11,7 @@ const RATES = {
 class MoodModel {
   constructor(init = {}) {
     this.hunger = init.hunger ?? 20;
-    this.energy = init.energy ?? 130;
+    this.energy = init.energy ?? 80;
     this.happiness = init.happiness ?? 50;
   }
 
@@ -35,9 +35,9 @@ class MoodModel {
   isNight(now) { const h = now.getHours(); return h >= 22 || h < 6; }
 
   dominantMood(now) {
+    if (this.hunger >= 80) return 'hungry';
     if (this.energy <= 20) return 'sleepy';
     if (this.isNight(now) && this.energy < 50) return 'sleepy';
-    if (this.hunger >= 80) return 'hungry';
     if (this.energy <= 40) return 'tired';
     if (this.happiness >= 60 && this.energy >= 50) return 'playful';
     return 'content';
