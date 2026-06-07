@@ -1,14 +1,12 @@
-const { app, BrowserWindow } = require('electron');
-const path = require('path');
+const { app } = require('electron');
+const { createOverlay } = require('./overlay-window');
 
-function createWindow() {
-  const win = new BrowserWindow({
-    width: 800,
-    height: 600,
-    webPreferences: { contextIsolation: true },
-  });
-  win.loadFile(path.join(__dirname, '../renderer/index.html'));
+const gotLock = app.requestSingleInstanceLock();
+if (!gotLock) {
+  app.quit();
+} else {
+  let win = null;
+  app.whenReady().then(() => { win = createOverlay(); });
+  app.on('second-instance', () => { if (win) win.show(); });
+  app.on('window-all-closed', () => app.quit());
 }
-
-app.whenReady().then(createWindow);
-app.on('window-all-closed', () => app.quit());
