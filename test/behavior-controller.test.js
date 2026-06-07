@@ -47,6 +47,13 @@ test('pet input gives a transient PET_REACT', () => {
   expect(s.sound).toBe('purr');
 });
 
+test('petting a sleepy or tired cat makes it grumpy instead of purring', () => {
+  const sleepy = new BehaviorController({ rng: rng(0.5) }).update('sleepy', { type: 'pet' }, 0.1);
+  expect(sleepy.sound).toBe('grumpy');
+  const tired = new BehaviorController({ rng: rng(0.5) }).update('tired', { type: 'pet' }, 0.1);
+  expect(tired.sound).toBe('grumpy');
+});
+
 test('content mood eventually wanders (low rng) or sits (high rng)', () => {
   const wander = new BehaviorController({ rng: rng(0.0) }).update('content', null, 0.1);
   expect(wander.name).toBe('WANDER');

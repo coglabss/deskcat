@@ -8,7 +8,8 @@ const STATES = {
   PLAY:      { name: 'PLAY',      anim: 'yarn',  sound: 'chirp', moodState: 'active' },
   WANDER:    { name: 'WANDER',    anim: 'walk',  sound: 'meow',  moodState: 'active' },
   SIT:       { name: 'SIT',       anim: 'sit',   sound: null,    moodState: 'resting' },
-  PET_REACT: { name: 'PET_REACT', anim: 'sit',   sound: 'purr',  moodState: 'resting', transient: true },
+  PET_REACT: { name: 'PET_REACT', anim: 'sit',   sound: 'purr',   moodState: 'resting', transient: true },
+  PET_GRUMPY:{ name: 'PET_REACT', anim: 'sit',   sound: 'grumpy', moodState: 'resting', transient: true },
 };
 
 class BehaviorController {
@@ -23,7 +24,8 @@ class BehaviorController {
         case 'drag-start': return (this.current = STATES.DRAGGED);
         case 'feed':       return (this.current = STATES.EAT);
         case 'play':       return (this.current = STATES.PLAY);
-        case 'pet':        return STATES.PET_REACT; // transient, doesn't replace current
+        case 'pet': // transient; grumble if disturbed while sleepy/tired, else purr
+          return (mood === 'sleepy' || mood === 'tired') ? STATES.PET_GRUMPY : STATES.PET_REACT;
       }
     }
     switch (mood) {

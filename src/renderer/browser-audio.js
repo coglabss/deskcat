@@ -2,10 +2,10 @@
 const FILES = {
   meow: 'dragon-studio-cute-cat-meow-472372.mp3',
   beg: 'freesound_community-cat-wants-food-107901.mp3',
-  purr: 'stu9-cute-cat-352656.mp3', // placeholder until a real purr is added
+  purr: 'vinodadora-cat-purr-128584.mp3',
   snore: 'u_1i3msyu21c-kitten-snore-438557.mp3',
   chirp: 'stu9-cute-cat-352656.mp3',
-  grumpy: 'freesound_community-grumpy-cat-78494.mp3',
+  grumpy: 'alex_jauk-annoyed-cat-meows-angrily-438006.mp3',
 };
 
 function makeBrowserAudio(volume = 0.7) {
