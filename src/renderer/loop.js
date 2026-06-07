@@ -66,7 +66,7 @@ function frame(now) {
 
   // Decide behavior ~ every 2.5s, or immediately on a forcing input
   decisionTimer -= dt;
-  const forcing = !!input && ['drag-start', 'feed', 'play', 'pet', 'sleep'].includes(input.type);
+  const forcing = !!input && ['drag-start', 'drag-end', 'feed', 'play', 'pet', 'sleep'].includes(input.type);
   if (forcing || decisionTimer <= 0) {
     const m = mood.dominantMood(clock);
     lastState = behavior.update(m, forcing ? input : null, dt);
@@ -86,14 +86,14 @@ function frame(now) {
   if (lastState.name === 'WANDER') mover.update(dt);
   player.update(dt);
 
-  render();
+  render(dt);
   debug.textContent = `${lastState.name} | H${mood.hunger | 0} E${mood.energy | 0} J${mood.happiness | 0}`;
   requestAnimationFrame(frame);
 }
 
 function spawnHeart() { hearts.push({ x: mover.x + 32, y: mover.y, life: 1 }); }
 
-function render() {
+function render(dt) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   const clip = SPRITES.clips[lastState.anim] || SPRITES.clips.idle;
   const sheet = SPRITES.sheets[clip.sheet];
@@ -116,7 +116,7 @@ function render() {
     ctx.fillRect(mover.x, mover.y, footprint.w, footprint.h); // fallback block until art loads
   }
   for (let i = hearts.length - 1; i >= 0; i--) {
-    const h = hearts[i]; h.y -= 30 * 0.016; h.life -= 0.016;
+    const h = hearts[i]; h.y -= 30 * dt; h.life -= dt;
     if (h.life <= 0) { hearts.splice(i, 1); continue; }
     ctx.globalAlpha = Math.max(0, h.life);
     ctx.font = '20px serif'; ctx.fillText('❤️', h.x, h.y);
