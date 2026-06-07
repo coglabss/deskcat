@@ -10,6 +10,23 @@
 
 ---
 
+## Plan Revision Note (2026-06-07, during execution)
+
+**Module system:** All modules use **CommonJS** (`module.exports` / `require`) consistently —
+both the jest-tested logic modules AND the renderer files. The renderer (`index.html`) loads
+`loop.js` as a plain `<script src="./loop.js">` (NOT `type="module"`), and the Electron
+overlay window is created with `webPreferences: { nodeIntegration: true, contextIsolation:
+false }` so the renderer can `require()` local modules and `require('electron').ipcRenderer`
+directly. This replaces the original draft's ES-module `import`/`export` in `loop.js`,
+`sprite-config.js`, `browser-audio.js`, `input-handler.js`, and the `preload.js` +
+`contextBridge` bridge (dropped). Rationale: ES `import` and CommonJS `require` cannot mix
+without a bundler; keeping one system (CommonJS) avoids a build step. `nodeIntegration: true`
+is acceptable here because the app only ever loads bundled local files (no remote content).
+IPC: renderer uses `ipcRenderer.send('cat:hover', over)` and `ipcRenderer.on('cat:action'|
+'cat:mute', ...)`; main uses `ipcMain.on('cat:hover')` and `win.webContents.send(...)`.
+
+---
+
 ## File Structure
 
 ```
