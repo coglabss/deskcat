@@ -6,7 +6,7 @@ const STATES = {
   SLEEP:     { name: 'SLEEP',     anim: 'sleep', sound: 'snore', moodState: 'sleeping' },
   REST:      { name: 'REST',      anim: 'sit',   sound: 'purr',  moodState: 'resting' },
   PLAY:      { name: 'PLAY',      anim: 'yarn',  sound: 'chirp', moodState: 'active' },
-  WANDER:    { name: 'WANDER',    anim: 'walk',  sound: 'meow',  moodState: 'active' },
+  WANDER:    { name: 'WANDER',    anim: 'walk',  sound: null,    moodState: 'active' },
   SIT:       { name: 'SIT',       anim: 'sit',   sound: null,    moodState: 'resting' },
   PET_REACT: { name: 'PET_REACT', anim: 'sit',   sound: 'purr',   moodState: 'resting', transient: true },
   PET_GRUMPY:{ name: 'PET_REACT', anim: 'sit',   sound: 'grumpy', moodState: 'resting', transient: true },

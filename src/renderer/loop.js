@@ -78,6 +78,12 @@ function frame(now) {
     lastState = behavior.update(m, forcing ? input : null, dt);
     player.play(lastState.anim);
     audio.cue(lastState.sound);
+    // Occasional ambient meow when calm — NOT on every walk. ~4% per decision
+    // (a decision is ~every 2.5s) averages a meow roughly once a minute; the
+    // AudioManager cooldown still prevents any bunching.
+    if (!forcing && (lastState.name === 'WANDER' || lastState.name === 'SIT') && Math.random() < 0.04) {
+      audio.cue('meow');
+    }
     decisionTimer = 2.5;
     if (lastState.name === 'WANDER') {
       const p = mover.randomWanderPoint();
