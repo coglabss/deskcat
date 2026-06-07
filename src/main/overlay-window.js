@@ -16,6 +16,7 @@ function createOverlay() {
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
+      autoplayPolicy: 'no-user-gesture-required', // let mood/ambient sounds play without a click
     },
   });
   win.setAlwaysOnTop(true, 'screen-saver');
