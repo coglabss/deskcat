@@ -15,7 +15,10 @@ const SPRITES = {
     walk:  { sheet: 'main', row: 5, frames: 10, fps: 10, loop: true }, // side walk cycle
     run:   { sheet: 'main', row: 6, frames: 10, fps: 14, loop: true }, // low fast run
     yarn:  { sheet: 'main', row: 7, frames: 11, fps: 10, loop: true }, // play with pink yarn ball
-    sleep: { sheet: 'main', row: 8, frames: 6,  fps: 2,  loop: true }, // lying down
+    // sleep: row 4 settles into lying flat; start at col 8 so we loop only the
+    // two calm "lying still" frames (col 0-7 are the sit-down lead-in), slow fps
+    // = gentle breathing, not the row-8 roll/stretch that looked like movement.
+    sleep: { sheet: 'main', row: 4, col: 8, frames: 2, fps: 2, loop: true },
   },
 };
 

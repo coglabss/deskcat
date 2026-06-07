@@ -112,7 +112,7 @@ function render(dt) {
   const img = images[clip.sheet];
   const f = player.currentFrame();
   if (img && img.complete && img.naturalWidth > 0) {
-    const sx = f * sheet.frameW;
+    const sx = ((clip.col || 0) + f) * sheet.frameW;
     const sy = clip.row * sheet.frameH;
     ctx.save();
     // Source art faces LEFT, so mirror it when the cat is facing/moving RIGHT.
