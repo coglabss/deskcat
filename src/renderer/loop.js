@@ -11,7 +11,13 @@ const { ipcRenderer } = require('electron');
 const canvas = document.getElementById('stage');
 const ctx = canvas.getContext('2d');
 const debug = document.getElementById('debug');
-function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+// Setting canvas.width/height resets context state, so (re)apply crisp pixel
+// scaling inside resize — otherwise the upscaled sprite would look blurry.
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  ctx.imageSmoothingEnabled = false;
+}
 resize(); window.addEventListener('resize', resize);
 
 // Load sprite sheet images
@@ -103,7 +109,8 @@ function render(dt) {
     const sx = f * sheet.frameW;
     const sy = clip.row * sheet.frameH;
     ctx.save();
-    if (mover.facing === -1) {
+    // Source art faces LEFT, so mirror it when the cat is facing/moving RIGHT.
+    if (mover.facing === 1) {
       ctx.translate(mover.x + footprint.w, mover.y);
       ctx.scale(-1, 1);
       ctx.drawImage(img, sx, sy, sheet.frameW, sheet.frameH, 0, 0, footprint.w, footprint.h);
