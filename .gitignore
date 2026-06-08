@@ -2,3 +2,12 @@ node_modules/
 dist/
 .superpowers/
 *.log
+
+# Third-party assets are downloaded by each user (see README) — not redistributed.
+assets/cats/*
+assets/sounds/*
+!assets/cats/.gitkeep
+!assets/sounds/.gitkeep
+
+# Windows convenience launcher (contains a machine-specific path)
+Start DesktopCat.vbs

@@ -6,7 +6,7 @@
   "scripts": {
     "start": "electron .",
     "test": "jest",
-    "dist": "electron-packager . DesktopCat --platform=win32 --arch=x64 --out=dist --overwrite --app-version=0.1.0"
+    "dist": "electron-packager . DesktopCat --overwrite --out=dist --app-version=0.1.0"
   },
   "devDependencies": {
     "@electron/packager": "^18.3.6",

@@ -5,7 +5,7 @@
 // Clip KEYS (idle/walk/run/sit/lick/paw/yarn/sleep) are referenced by other modules.
 const SPRITES = {
   sheets: {
-    main: { src: '../../assets/cats/Cat_Sprite_Sheet_Black.png', frameW: 32, frameH: 32 },
+    main: { src: '../../assets/cats/cat.png', frameW: 32, frameH: 32 },
   },
   clips: {
     idle:  { sheet: 'main', row: 0, frames: 9,  fps: 6,  loop: true }, // sit upright (front)
