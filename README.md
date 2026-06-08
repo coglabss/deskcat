@@ -34,37 +34,64 @@ The cat appears immediately. Until you add art (next section) it shows a small
 
 ## 🎨 Add the art & sounds (one-time)
 
-The cat sprite and sound clips are **not bundled** in this repo because their
-licenses don't permit re-hosting. Grab these free assets and drop them in — it
-takes ~2 minutes:
+Until you add art, the app shows an orange placeholder block and stays silent —
+that's normal. There are two ways to get the real cat. **Option A is the fastest.**
 
-### Sprite art → `assets/cats/cat.png`
-1. Download **"Cat Pack" by octopusinkus** (free / name-your-price):
-   <https://octopusinkus.itch.io/cat-pack>
-2. Rename the **black** sprite sheet to **`cat.png`** and place it at
-   `assets/cats/cat.png`.
-3. The default animation map in `src/renderer/sprite-config.js` targets this
-   pack's **12×9 grid of 32×32 frames**. Other color variants share the same
-   layout — just save your chosen one as `cat.png`. Using a *different* pack?
-   Adjust the `row`/`frames` values in `sprite-config.js` to match it.
+### ✅ Option A — Use the bundled asset packs (recommended)
 
-### Sounds → `assets/sounds/*.mp3`
-Grab 6 short **CC0 / royalty-free** cat clips from
-[Pixabay](https://pixabay.com/sound-effects/search/cat/) or
-[Freesound](https://freesound.org) (filter License = *Creative Commons 0*) and
-save them with these exact names:
+This repo ships ready-to-use zips in [`bundled-assets/`](bundled-assets). Just
+unzip each one into the matching folder:
 
-| File | When it plays |
-|------|---------------|
-| `assets/sounds/meow.mp3`  | occasional ambient meow |
-| `assets/sounds/beg.mp3`   | hungry (begging for food) |
-| `assets/sounds/purr.mp3`  | when you pet it |
-| `assets/sounds/snore.mp3` | while sleeping |
-| `assets/sounds/chirp.mp3` | eating / playing |
-| `assets/sounds/grumpy.mp3`| petted while sleepy/tired |
+1. **`bundled-assets/cat-art.zip` → `assets/cats/`**
+   It contains `cat.png`. Extract it so the file lands at `assets/cats/cat.png`.
+2. **`bundled-assets/cat-sounds.zip` → `assets/sounds/`**
+   It contains the 6 sound files. Extract them so they land directly in
+   `assets/sounds/` (e.g. `assets/sounds/meow.mp3`).
 
-Re-run `npm start` and your real cat comes to life. Missing files simply fall
-back to the placeholder / silence — the app never crashes over a missing asset.
+**How to unzip:**
+
+- **Windows (PowerShell)** — from the project folder:
+  ```powershell
+  Expand-Archive -Force bundled-assets\cat-art.zip    assets\cats
+  Expand-Archive -Force bundled-assets\cat-sounds.zip assets\sounds
+  ```
+  (Or right-click each zip → **Extract All…** → choose the matching `assets\…` folder.)
+
+- **macOS / Linux** — from the project folder:
+  ```bash
+  unzip -o bundled-assets/cat-art.zip    -d assets/cats
+  unzip -o bundled-assets/cat-sounds.zip -d assets/sounds
+  ```
+
+Then run `npm start` again — your cat comes to life. ✅
+
+> Asset credits & licenses: see [`bundled-assets/CREDITS.txt`](bundled-assets/CREDITS.txt).
+> The bundled sprite is from the "Cat Pack" by **octopusinkus**; the sounds are
+> CC0 / royalty-free. These assets belong to their creators — the MIT license
+> covers the **code** only.
+
+### 🔄 Option B — Bring your own assets
+
+Prefer a different cat or sounds? Drop your own files in using these names:
+
+- **Sprite:** `assets/cats/cat.png` — the default mapping in
+  `src/renderer/sprite-config.js` expects a **12×9 grid of 32×32 frames** (the
+  octopusinkus Cat Pack layout). For a different sheet, adjust the `row`/`col`/
+  `frames` values there.
+- **Sounds:** in `assets/sounds/`, named `meow.mp3`, `beg.mp3`, `purr.mp3`,
+  `snore.mp3`, `chirp.mp3`, `grumpy.mp3`.
+
+| Sound file | When it plays |
+|------------|---------------|
+| `meow.mp3`  | occasional ambient meow |
+| `beg.mp3`   | hungry (begging for food) |
+| `purr.mp3`  | when you pet it |
+| `snore.mp3` | while sleeping |
+| `chirp.mp3` | eating / playing |
+| `grumpy.mp3`| petted while sleepy/tired |
+
+Missing files simply fall back to the placeholder / silence — the app never
+crashes over a missing asset.
 
 ## 🎮 Controls
 
@@ -128,10 +155,13 @@ The full design spec and implementation plan live in `docs/superpowers/`.
 ## 🙏 Credits
 
 - **Code:** MIT (see [LICENSE](LICENSE)).
-- **Cat sprite:** "Cat Pack" by **octopusinkus** — downloaded separately by each
-  user; not redistributed here.
-- **Sounds:** your chosen CC0 / royalty-free clips — please honor their licenses
-  and attributions.
+- **Cat sprite:** "Cat Pack" by **[octopusinkus](https://octopusinkus.itch.io/cat-pack)**
+  — bundled in `bundled-assets/` for convenience; all rights belong to the artist.
+- **Sounds:** CC0 / royalty-free clips from Pixabay / Freesound.
+- Full asset attribution: [`bundled-assets/CREDITS.txt`](bundled-assets/CREDITS.txt).
+
+The MIT license applies to the **source code only**; bundled assets remain under
+their creators' terms.
 
 ## 📄 License
 

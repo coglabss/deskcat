@@ -1,0 +1,22 @@
+DesktopCat — bundled asset credits
+==================================
+
+These asset bundles are included so you can get the cat running instantly.
+The SOURCE CODE of DesktopCat is MIT licensed, but these art/sound assets are
+the work of their original creators and remain under THEIR licenses. Please
+credit them and check their terms if you redistribute.
+
+cat-art.zip
+-----------
+- cat.png — pixel cat sprite sheet from the "Cat Pack" by octopusinkus.
+  Source: https://octopusinkus.itch.io/cat-pack
+  Please support / credit the artist.
+
+cat-sounds.zip
+--------------
+- meow.mp3, beg.mp3, purr.mp3, snore.mp3, chirp.mp3, grumpy.mp3
+  Royalty-free / CC0 cat sounds sourced from Pixabay / Freesound.
+  See https://pixabay.com/sound-effects/search/cat/ and https://freesound.org
+
+If you are the author of any asset here and would like it removed or credited
+differently, please open an issue.
