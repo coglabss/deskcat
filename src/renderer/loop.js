@@ -51,7 +51,8 @@ createInputHandler(
 ipcRenderer.on('cat:action', (_e, action) => inputQueue.push({ type: action }));
 ipcRenderer.on('cat:mute', (_e, m) => audio.setMuted(m));
 
-const hearts = [];
+const particles = []; // floating emoji effects (hearts, food, zzz)
+let zzzTimer = 0;
 let decisionTimer = 0;
 let prev = performance.now();
 
@@ -64,8 +65,8 @@ function frame(now) {
   const input = inputQueue.shift() || null;
   if (input) {
     if (input.type === 'drag-move') { mover.x = input.x - footprint.w / 2; mover.y = input.y - footprint.h / 2; }
-    if (input.type === 'pet') { mood.pet(); spawnHeart(); }
-    if (input.type === 'feed') mood.feed();
+    if (input.type === 'pet') { mood.pet(); spawnHearts(); }
+    if (input.type === 'feed') { mood.feed(); spawnFood(); }
     if (input.type === 'play') mood.play();
     if (input.type === 'sleep') mood.energy = Math.min(mood.energy, 15);
   }
@@ -98,12 +99,43 @@ function frame(now) {
   if (lastState.name === 'WANDER') mover.update(dt);
   player.update(dt);
 
+  // Floating Zzz while asleep (every ~1.4s)
+  if (lastState.name === 'SLEEP') {
+    zzzTimer -= dt;
+    if (zzzTimer <= 0) { spawnZzz(); zzzTimer = 1.4; }
+  } else {
+    zzzTimer = 0;
+  }
+
   render(dt);
   debug.textContent = `${lastState.name} | H${mood.hunger | 0} E${mood.energy | 0} J${mood.happiness | 0}`;
   requestAnimationFrame(frame);
 }
 
-function spawnHeart() { hearts.push({ x: mover.x + 32, y: mover.y, life: 1 }); }
+// Generic floating-emoji particle. Drifts up and fades out.
+function spawnParticle(char, o = {}) {
+  particles.push({
+    x: mover.x + (o.dx ?? footprint.w / 2),
+    y: mover.y + (o.dy ?? 0),
+    char,
+    vx: o.vx ?? 0,
+    vy: o.vy ?? -30,
+    size: o.size ?? 20,
+    life: o.life ?? 1,
+    maxLife: o.life ?? 1,
+  });
+}
+function spawnHearts() {
+  for (let i = 0; i < 2; i++) {
+    spawnParticle('❤️', { dx: footprint.w / 2 + (Math.random() * 20 - 10), vy: -35, life: 1, size: 18 });
+  }
+}
+function spawnFood() {
+  spawnParticle('🍖', { dx: footprint.w / 2, dy: 6, vy: -24, life: 1.4, size: 24 });
+}
+function spawnZzz() {
+  spawnParticle('💤', { dx: footprint.w * 0.62, dy: 6, vx: 10, vy: -18, life: 1.6, size: 18 });
+}
 
 function render(dt) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -128,11 +160,13 @@ function render(dt) {
     ctx.fillStyle = 'rgba(255,170,90,.9)';
     ctx.fillRect(mover.x, mover.y, footprint.w, footprint.h); // fallback block until art loads
   }
-  for (let i = hearts.length - 1; i >= 0; i--) {
-    const h = hearts[i]; h.y -= 30 * dt; h.life -= dt;
-    if (h.life <= 0) { hearts.splice(i, 1); continue; }
-    ctx.globalAlpha = Math.max(0, h.life);
-    ctx.font = '20px serif'; ctx.fillText('❤️', h.x, h.y);
+  for (let i = particles.length - 1; i >= 0; i--) {
+    const p = particles[i];
+    p.x += p.vx * dt; p.y += p.vy * dt; p.life -= dt;
+    if (p.life <= 0) { particles.splice(i, 1); continue; }
+    ctx.globalAlpha = Math.max(0, p.life / p.maxLife);
+    ctx.font = `${p.size}px serif`;
+    ctx.fillText(p.char, p.x, p.y);
     ctx.globalAlpha = 1;
   }
 }
