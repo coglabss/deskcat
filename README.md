@@ -1,4 +1,4 @@
-# 🐾 DesktopCat
+# 🐾 DeskCat
 
 A cute, free-roaming desktop pet cat for **Windows & macOS**. It wanders your
 desktop, naps, plays, gets hungry, and reacts to you — pet it, drag it, feed it.
@@ -23,8 +23,8 @@ everywhere except on its own body).
 **Prerequisites:** [Node.js 18+](https://nodejs.org) and [Git](https://git-scm.com).
 
 ```bash
-git clone <YOUR-REPO-URL>
-cd desktop-cat
+git clone https://github.com/coglabss/deskcat.git
+cd deskcat
 npm install
 npm start
 ```
@@ -112,8 +112,8 @@ npm run dist
 ```
 
 Builds for **your current OS** into `dist/`:
-- Windows → `dist/DesktopCat-win32-x64/DesktopCat.exe`
-- macOS → `dist/DesktopCat-darwin-<arch>/DesktopCat.app`
+- Windows → `dist/DeskCat-win32-x64/DeskCat.exe`
+- macOS → `dist/DeskCat-darwin-<arch>/DeskCat.app`
 
 Double-click to run; the folder is self-contained and portable. (We use
 [`@electron/packager`](https://github.com/electron/packager), which needs no
