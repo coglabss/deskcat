@@ -7,6 +7,24 @@ everywhere except on its own body).
 
 > _Add a screenshot or GIF here once you've got your cat running!_
 
+## ⬇️ Download for Windows (no setup, no coding)
+
+Just want the cat? Grab the ready-to-run build — **art and sounds are baked in**:
+
+1. Go to the **[Releases page](https://github.com/coglabss/deskcat/releases/latest)**.
+2. Download **`DeskCat-Windows-x64.zip`**.
+3. Right-click the zip → **Extract All…**
+4. Open the extracted folder and double-click **`DeskCat.exe`**. 🐈‍⬛
+
+That's it — the cat starts wandering. Quit/feed/sleep from its **tray icon**
+(bottom-right of the taskbar; click `^` to show hidden icons).
+
+> First launch, Windows SmartScreen may show "Windows protected your PC" because
+> the app isn't code-signed. Click **More info → Run anyway** (it's the build
+> from this repo). To start the cat automatically at login: tray → *Start with system*.
+
+_On macOS or want to tinker with the code? Use the [Quick start](#-quick-start) below._
+
 ## ✨ Features
 
 - Free-roaming cat that walks, sits, naps, and plays on top of your desktop
