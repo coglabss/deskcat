@@ -5,7 +5,11 @@ desktop, naps, plays, gets hungry, and reacts to you — pet it, drag it, feed i
 Built with Electron; the desktop stays fully usable (the cat is click-through
 everywhere except on its own body).
 
-## 🎬 Demo
+<p align="center">
+  <img src="docs/demo.gif" alt="DeskCat — a cat wandering the desktop" width="600">
+</p>
+
+## 🎬 Demo (full video)
 
 <video src="https://github.com/coglabss/deskcat/raw/main/docs/demo.mp4" controls muted loop width="640">
   Your browser can't play this video —
