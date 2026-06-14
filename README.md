@@ -7,8 +7,6 @@ everywhere except on its own body).
 
 ## 🎬 Demo
 
-https://github.com/coglabss/deskcat/raw/main/docs/demo.mp4
-
 <video src="https://github.com/coglabss/deskcat/raw/main/docs/demo.mp4" controls muted loop width="640">
   Your browser can't play this video —
   <a href="https://github.com/coglabss/deskcat/raw/main/docs/demo.mp4">download / view the demo here</a>.
